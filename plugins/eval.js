@@ -58,5 +58,4 @@ function clean(text) {
     } else {
         return text;
     }
-            }
-              
+}
