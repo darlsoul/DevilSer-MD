@@ -1,6 +1,7 @@
 const fs = require("fs");
 const axios = require("axios");
 const path = require("path");
+const version = "1.0.0";
 const express = require("express");
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState } = require("@whiskeysockets/baileys");
 const { Boom } = require("@hapi/boom");
