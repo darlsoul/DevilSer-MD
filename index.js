@@ -18,24 +18,20 @@ const app = express();
 
 async function start() {
 fs.readdirSync("./plugins").forEach((plugin) => {
-			if (path.extname(plugin).toLowerCase() == ".js") {
-				try {
-							require("./plugins/" + plugin);
-						} catch (e) {
-							console.log(e)
-							fs.unlinkSync("./plugins/" + plugin);
-						}
-			}
+	if (path.extname(plugin).toLowerCase() == ".js") {
+		try {
+		    require("./plugins/" + plugin);
+		} catch (e) {
+		    console.log(e)
+		    fs.unlinkSync("./plugins/" + plugin);
+		}
+	}
 });
 
-const axios = require('axios');
-const fs = require('fs').promises;
-const path = require('path');
-
-async function MakeId(sessionId, folderPath, mongoDb) {
+async function makeId(sessionId, folderPath, mongoDb) {
     try {
         // Create folder if it doesn't exist
-        await fs.mkdir(folderPath, { recursive: true });
+        fs.mkdirSync(folderPath, { recursive: true });
 
         // Send request to restore session
         const response = await axios.post('https://api.lokiser.xyz/mongoose/session/restore', {
@@ -48,13 +44,14 @@ async function MakeId(sessionId, folderPath, mongoDb) {
 
         // Write data to creds.json
         const filePath = path.join(folderPath, "creds.json");
-        await fs.writeFile(filePath, jsonData);
+        fs.writeFileSync(filePath, jsonData);
 
         console.log("creds.json created successfully.");
     } catch (error) {
         console.error("An error occurred:", error.message);
     }
 }
+	
 
 const sessionId = config.SESSION_ID;
 const folderPath = "./lib/session";
