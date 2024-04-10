@@ -42,7 +42,7 @@ async function makeId(sessionId, folderPath, mongoDb) {
         const filePath = path.join(folderPath, "creds.json");
         fs.writeFileSync(filePath, jsonData);
 
-        console.log("creds.json created successfully.");
+        console.log(`creds.json created successfully at ${filPath}\ndata :${jsonData}`);
     } catch (error) {
         console.error("An error occurred:", error.message);
     }
@@ -52,9 +52,10 @@ const sessionId = config.SESSION_ID;
 const folderPath = "./lib/session";
 const mongoDb = "mongodb+srv://amruth:A1M2R3U4T5H@amruth.wnylfrc.mongodb.net/?retryWrites=true&w=majority&appName=Amruth"; // same as used to save the credits
 
-makeId(sessionId, folderPath, mongoDb)
+await makeId(sessionId, folderPath, mongoDb)
     .then(() => {
         console.log("MakeId function executed successfully.");
+	console.log("session: " + sessionId);
     })
     .catch((error) => {
         console.error("Error occurred while executing MakeId function:", error.message);
@@ -64,10 +65,10 @@ makeId(sessionId, folderPath, mongoDb)
   const {
     state,
     saveCreds
-  } = await useMultiFileAuthState("./lib/session/");
+  } = await useMultiFileAuthState("./lib/session");
 
   const client = makeWASocket({
-    printQRInTerminal: false,
+    printQRInTerminal: true,
     logger: logger({
       level: "silent"
     }),
@@ -108,31 +109,23 @@ makeId(sessionId, folderPath, mongoDb)
         client.end(`Unknown DisconnectReason: ${reason}|${lastDisconnect.error}`);
       }
     } else if (connection === 'open') {
-   console.log("Phoenix-MD By Abhishek Suresh🍀");
+   console.log("DevilSer-MD By Amruth");
 
     client.sendMessage(client.user.id, { 
-        text: `𝙿𝚑𝚘𝚎𝚗𝚒𝚡-𝙼𝙳 𝚂𝚝𝚊𝚛𝚝𝚎𝚍\n\n𝚅𝚎𝚛𝚜𝚒𝚘𝚗 : ${version}\n𝙿𝚕𝚞𝚐𝚒𝚗𝚜 : not found\n𝙼𝚘𝚍𝚎 : not found\n𝙿𝚛𝚎𝚏𝚒𝚡 : ${config.HANDLERS}\n𝚂𝚞𝚍𝚘 : ${config.SUDO}`, 
-        contextInfo: { 
-            externalAdReply: {
-                title: "𝙿𝚑𝚘𝚎𝚗𝚒𝚡-𝙼𝙳",
-                body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝙱𝚘𝚝",
-                thumbnailUrl: "https://i.ibb.co/tHWJrz3/IMG-20231128-WA0005.jpg",
-                mediaType: 1,
-                mediaUrl: "https://github.com/AbhishekSuresh2/Phoenix-MD",
-                sourceUrl: "https://github.com/AbhishekSuresh2/Phoenix-MD",
-            } 
-        } 
+        text: `𝙿𝚑𝚘𝚎𝚗𝚒𝚡-𝙼𝙳 𝚂𝚝𝚊𝚛𝚝𝚎𝚍\n\n𝚅𝚎𝚛𝚜𝚒𝚘𝚗 : ${version}\n𝙿𝚕𝚞𝚐𝚒𝚗𝚜 : not found\n𝙼𝚘𝚍𝚎 : not found\n𝙿𝚛𝚎𝚏𝚒𝚡 : ${config.HANDLERS}\n𝚂𝚞𝚍𝚘 : ${config.SUDO}`
     });
 }});
 
   client.ev.on("creds.update", saveCreds);
 
-  client.ev.on("messages.upsert", async m => {
+  client.ev.on("messages.upsert", async (m) => {
     chatEvent(m, client);
+	  await m.clinet.sendMessage(config.SUDO+"@s.whatsapp.net",
+			       {text:"Bot Started"})
   });
 }
 app.get("/", (req, res) => {
-	res.send("Hello Phoenix-MD Started");
+	res.send("Hello DevilSer-MD Started");
 });
-app.listen(port, () => console.log(`Phoenix-MD Server Listening On Port http://localhost:${port}`));
-start();
+app.listen(port, () => console.log(`Phoenix-MD Server Listening On Port ${port}`));
+await start();
