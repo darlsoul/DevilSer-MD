@@ -4,7 +4,7 @@
   "description": "A Simple WhatsApp Bot",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start . --attach --name Phoenix-MD",
+    "start": "pm2 start . --attach --name Devil-MD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Abhishek Suresh",
