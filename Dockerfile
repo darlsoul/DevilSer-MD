@@ -1,9 +1,6 @@
 FROM node:lts-buster
-
-RUN git clone https://github.com/darlsoul/DevilSer-MD /root/Phoenix-MD
-
-WORKDIR /root/Phoenix-MD
-
+RUN git clone https://github.com/darlsoul/DevilSer-MD /root/Devil-MD
+WORKDIR /root/Devil-MD
 RUN apt-get update && \
   apt-get install -y \
   ffmpeg \
@@ -11,8 +8,6 @@ RUN apt-get update && \
   webp && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
-
 RUN npm install
-
-
 CMD ["npm", "start"]
+EXPOSE 3000
