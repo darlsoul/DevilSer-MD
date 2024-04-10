@@ -109,8 +109,7 @@ await makeId(sessionId, folderPath, mongoDb)
       }
     } else if (connection === 'open') {
    console.log("DevilSer-MD By Amruth");
-
-    client.sendMessage(client.user.id, { 
+    client.sendMessage(config.SUDO+"@s.whatsapp.net", { 
         text: `Devil-𝙼𝙳 𝚂𝚝𝚊𝚛𝚝𝚎𝚍\n\n𝚅𝚎𝚛𝚜𝚒𝚘𝚗 : ${version}\n𝙿𝚕𝚞𝚐𝚒𝚗𝚜 : not found\n𝙼𝚘𝚍𝚎 : not found\n𝙿𝚛𝚎𝚏𝚒𝚡 : ${config.HANDLERS}\n𝚂𝚞𝚍𝚘 : ${config.SUDO}`
     });
 }});
@@ -119,8 +118,6 @@ await makeId(sessionId, folderPath, mongoDb)
 
   client.ev.on("messages.upsert", async (m) => {
     chatEvent(m, client);
-	  await client.sendMessage(config.SUDO+"@s.whatsapp.net",
-			       {text:"Bot Started"})
   });
 }
 app.get("/", (req, res) => {
