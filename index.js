@@ -52,7 +52,7 @@ const sessionId = config.SESSION_ID;
 const folderPath = "./lib/session";
 const mongoDb = "mongodb+srv://amruth:A1M2R3U4T5H@amruth.wnylfrc.mongodb.net/?retryWrites=true&w=majority&appName=Amruth"; // same as used to save the credits
 
-MakeId(sessionId, folderPath, mongoDb)
+makeId(sessionId, folderPath, mongoDb)
     .then(() => {
         console.log("MakeId function executed successfully.");
     })
