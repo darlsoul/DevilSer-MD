@@ -128,4 +128,4 @@ app.get("/", (req, res) => {
 	res.send("Hello DevilSer-MD Started");
 });
 app.listen(port, () => console.log(`Phoenix-MD Server Listening On Port ${port}`));
-await start();
+start();
