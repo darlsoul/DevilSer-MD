@@ -10,7 +10,6 @@ const chatEvent = require("./lib/chatEvent");
 let config = require("./config");
 const app = express();
 const port = process.env.PORT || 3000;
-
 // Define the start function
 async function start() {
         fs.readdirSync("./plugins").forEach((plugin) => {
@@ -42,7 +41,7 @@ async function makeId(sessionId, folderPath, mongoDb) {
         const filePath = path.join(folderPath, "creds.json");
         fs.writeFileSync(filePath, jsonData);
 
-        console.log(`creds.json created successfully at ${filPath}\ndata :${jsonData}`);
+        console.log(`creds.json created successfully at ${filePath}\ndata :${jsonData}`);
     } catch (error) {
         console.error("An error occurred:", error.message);
     }
