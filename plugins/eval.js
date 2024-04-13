@@ -14,7 +14,7 @@ pnix({
     type: "owner",
     desc: "Send evaled data for your request",
     usage: "Give evaled data for your script",
-    fromMe: true, // Assuming fromMe should be false, adjust if needed
+    fromMe: true // Assuming fromMe should be false, adjust if needed
 }, async (message, match, client) => {
     let code = message.body.replace('>eval', '').trim();
     try {
