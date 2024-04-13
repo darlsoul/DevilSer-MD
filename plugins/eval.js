@@ -10,11 +10,11 @@ const cheerio = require('cheerio');
 
 pnix({
     pattern: "eval",
+    on: "all",
     type: "owner",
     desc: "Send evaled data for your request",
     usage: "Give evaled data for your script",
-    fromMe: false, // Assuming fromMe should be false, adjust if needed
-    on: "all",
+    fromMe: true, // Assuming fromMe should be false, adjust if needed
 }, async (message, match, client) => {
     let code = message.body.replace('>eval', '').trim();
     try {
