@@ -12,7 +12,7 @@ function listCommands() {
 }
 
 pnix({
-    pattern: "runtime",
+    pattern: "plugins",
     type: "main",
     desc: "Check Bot Runtime",
     fromMe: mode
