@@ -1,5 +1,5 @@
 {
-  "name": "Phoenix-MD",
+  "name": "DevilSer-MD",
   "version": "1.0.0",
   "description": "A Simple WhatsApp Bot",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "pm2 start . --attach --name Devil-MD",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Abhishek Suresh",
+  "author": "Amruth Krishna",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
@@ -38,6 +38,6 @@
     "pm2": "^5.2.0",
     "util": "^0.12.5",
     "@vitalets/google-translate-api": "^9.2.0",
-    "mongodb": "^5.3.0"
+    "mongodb": "^5.3.0" 
   }
 }
