@@ -1,6 +1,10 @@
-const { calculatePing, pnix, mode} = require("../lib");
+const {
+       calculatePing,
+       Module,
+       mode
+      } = require("../lib");
 
-pnix({
+Module({
     pattern: "ping",
     type: "main",
     desc: "Bot response.",
