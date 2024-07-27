@@ -1,7 +1,7 @@
 const { pnix, mode} = require("../lib");
 const emojis = ["🍒", "🕊", "💵", "🍭"];
 
-pnix({
+Module({
     pattern: "slot",
     type: "main",
     desc: "Check Bot Runtime",
