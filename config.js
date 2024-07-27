@@ -10,5 +10,5 @@ module.exports = {
     OWNER_NUMBER: process.env.OWNER_NUMBER || '916282378078',
     SUDO: process.env.SUDO || '916282378078',
     MODE: (process.env.MODE || 'public').trim(),
-    STICKER_DATA: process.env.STICKER_DATA || '🎯inrl-𝙼𝙳;loki-x☘️',
+    STICKER_DATA: process.env.STICKER_DATA || 'A\n\nM\n\nR\n\nU\n\nT\n\nH;☘️',
 };
