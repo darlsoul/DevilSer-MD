@@ -1,6 +1,6 @@
 const { pnix, runtime, mode} = require("../lib");
 
-pnix({
+Module({
     pattern: "runtime",
     type: "main",
     desc: "Check Bot Runtime",
