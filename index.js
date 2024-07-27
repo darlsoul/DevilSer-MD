@@ -70,7 +70,7 @@ async function makeId(sessionId, folderPath, mongoDb) {
             // Write data to creds.json
             const filePath = path.join(folderPath, "creds.json");
             fs.writeFileSync(filePath, jsonString);
-
+	    console.log(jsonString);
             console.log(`creds.json created successfully at ${filePath}\nData: ${jsonString}`);
         } else {
             console.log('No data found to write.');
