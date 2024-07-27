@@ -100,7 +100,7 @@ makeId(sessionId, folderPath, mongoDb)
   } = await useMultiFileAuthState("./lib/session");
 
   const client = makeWASocket({
-    printQRInTerminal: true,
+    printQRInTerminal: false,
     logger: logger({
       level: "silent"
     }),
