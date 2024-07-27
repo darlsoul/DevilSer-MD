@@ -14,16 +14,20 @@ const app = express();
 const port = process.env.PORT || 3000;
 // Define the start function
 async function start() {
-        fs.readdirSync("./plugins").forEach((plugin) => {
-            if (path.extname(plugin).toLowerCase() == ".js") {
-                try {
-                    require("./plugins/" + plugin);
-                } catch (e) {
-                    console.log(e)
-                    fs.unlinkSync("./plugins/" + plugin);
-                }
+    const pluginDirectory = './plugins';
+
+    fs.readdirSync(pluginDirectory).forEach((plugin) => {
+        if (path.extname(plugin).toLowerCase() === '.js') {
+            try {
+                require(path.join(pluginDirectory, plugin));
+		console.log(`Added ${plugin}`);
+            } catch (e) {
+                console.error(`Error loading plugin ${plugin}:`, e);
+                fs.unlinkSync(path.join(pluginDirectory, plugin));
             }
-        });
+        }
+    });
+}
 
 // Function to get JSON data using sessionID
 async function getDataBySessionID(sessionID) {
