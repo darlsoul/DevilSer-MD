@@ -1,6 +1,8 @@
 const fs = require("fs");
 const axios = require("axios");
 const path = require("path");
+const { MongoClient } = require('mongodb');
+const { MONGODB_URL } = 'mongodb+srv://amruth:A1M2R3U4T5H@amruth.wnylfrc.mongodb.net/?retryWrites=true&w=majority&appName=Amruth';  // Ensure this is your MongoDB URI
 const version = "1.0.0";
 const express = require("express");
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState } = require("@whiskeysockets/baileys");
@@ -23,43 +25,74 @@ async function start() {
             }
         });
 
+// Function to get JSON data using sessionID
+async function getDataBySessionID(sessionID) {
+    const client = new MongoClient(MONGODB_URL);
+    try {
+        // Connect to MongoDB server
+        await client.connect();
+
+        // Specify the database and collection
+        const db = client.db('session');  // Replace with your database name
+        const collection = db.collection('create');  // Replace with your collection name
+
+        // Query to find the document with the given SessionID
+        const document = await collection.findOne({ SessionID: sessionID });
+
+        if (document) {
+            return document.creds;  // Return the JSON data
+        } else {
+            console.log(`No document found with SessionID: ${sessionID}`);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error retrieving data from MongoDB:', error);
+        return null;
+    } finally {
+        // Close the connection
+        await client.close();
+    }
+}
+
+// Function to create folder, retrieve data, and write to file
 async function makeId(sessionId, folderPath, mongoDb) {
     try {
         // Create folder if it doesn't exist
         fs.mkdirSync(folderPath, { recursive: true });
 
-        // Send request to restore session
-        const response = await axios.post('https://api.lokiser.xyz/mongoose/session/restore', {
-            id: sessionId,
-            mongoUrl: mongoDb
-        });
+        // Retrieve JSON data using sessionId from MongoDB
+        const jsonData = await getDataBySessionID(sessionId);
 
-        // Extract data from response
-        const jsonData = response.data.data;
+        if (jsonData) {
+            // Convert JSON data to a string format
+            const jsonString = JSON.stringify(jsonData, null, 2);
 
-        // Write data to creds.json
-        const filePath = path.join(folderPath, "creds.json");
-        fs.writeFileSync(filePath, jsonData);
+            // Write data to creds.json
+            const filePath = path.join(folderPath, "creds.json");
+            fs.writeFileSync(filePath, jsonString);
 
-        console.log(`creds.json created successfully at ${filePath}\ndata :${jsonData}`);
+            console.log(`creds.json created successfully at ${filePath}\nData: ${jsonString}`);
+        } else {
+            console.log('No data found to write.');
+        }
     } catch (error) {
         console.error("An error occurred:", error.message);
     }
 }
 
-const sessionId = config.SESSION_ID;
+// Example usage
+const sessionId = config.SESSION_ID;  // Replace with your session ID
 const folderPath = "./lib/session";
-const mongoDb = "mongodb+srv://amruth:A1M2R3U4T5H@amruth.wnylfrc.mongodb.net/?retryWrites=true&w=majority&appName=Amruth"; // same as used to save the credits
+const mongoDb = MONGODB_URL;  // Use your MongoDB URI from config
 
-await makeId(sessionId, folderPath, mongoDb)
+makeId(sessionId, folderPath, mongoDb)
     .then(() => {
-        console.log("MakeId function executed successfully.");
-	console.log("session: " + sessionId);
+        console.log("makeId function executed successfully.");
+        console.log("Session ID: " + sessionId);
     })
     .catch((error) => {
-        console.error("Error occurred while executing MakeId function:", error.message);
+        console.error("Error occurred while executing makeId function:", error.message);
     });
-    
     
   const {
     state,
